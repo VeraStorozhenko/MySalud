@@ -10,14 +10,35 @@ class Appointment < ApplicationRecord
 
   validates :surgery_type, presence: true
   validates :doctor, presence: true
+  validates :left_photo, presence: true
+  validates :right_photo, presence: true
+  validates :front_photo, presence: true
   validates :time, presence: true
   validate :date_must_be_in_future
+
+  validates_size_of :left_photo, maximum: 3.megabytes, message: 'file size must be less than 3MB'
+  validates_size_of :right_photo, maximum: 3.megabytes, message: 'file size must be less than 3MB'
+  validates_size_of :front_photo, maximum: 3.megabytes, message: 'file size must be less than 3MB'
+
+  validate :validate_attachment_size
 
   private
 
   def date_must_be_in_future
-    # if time.present? && time < Date.today
-    #   errors.add(:time, "must be in the future")
-    # end
+    if time.present? && time < Date.today
+      errors.add(:time, "must be in the future")
+    end
+  end
+
+  def validate_attachment_size
+    if left_photo.attached? && left_photo.blob.byte_size > 3.megabytes
+      errors.add(:left_photo, 'size must be less than 3MB')
+    end
+    if right_photo.attached? && right_photo.blob.byte_size > 3.megabytes
+      errors.add(:right_photo, 'size must be less than 3MB')
+    end
+    if front_photo.attached? && front_photo.blob.byte_size > 3.megabytes
+      errors.add(:front_photo, 'size must be less than 3MB')
+    end
   end
 end

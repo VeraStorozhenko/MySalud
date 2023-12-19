@@ -10,84 +10,65 @@
 </div>
 
 <% if !@appointments.blank? %>
-    <div class="table-responsive mt-8">
-      <table>
-        <thead>
-        <tr>
-          <th></th>
-          <th>Surgery Type</th>
-          <th>Description</th>
-          <th>Photos</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @appointments.each do |appointment| %>
-          <tr>
-            <%= appointment.surgery_type.humanize %>
-            <br>
-            <%= appointment.description %>
-            <hr>
-            <div class="photo-container">
-              <div class="photo">
-                <%= image_tag url_for(appointment.left_photo), alt: 'Left Photo' %>
-              </div>
-              <div class="photo">
-                <%= image_tag url_for(appointment.right_photo), alt: 'Right Photo' %>
-              </div>
-              <div class="photo">
-                <%= image_tag url_for(appointment.front_photo), alt: 'Front Photo' %>
-              </div>
-            </div>
-          </tr>
-        <% end %>
-        </tbody>
-
-      </table>
-    </div>
-
-
     <div class="mt-8 grid sm:grid-cols-2 gap-8">
       <% @appointments.each do |appointment| %>
         <appointment class="card">
-          <h3 class="card-body">
-            <%= appointment.surgery_type.humanize %>
-          </h3>
-          <p class="card-body">
-            <%= appointment.time %><%= appointment.time %>
-          </p>
-          <p class="card-body">
-            <%= appointment.description %>
-          </p>
-          <div class="photo-container">
-            <div class="photo">
-              <%= image_tag url_for(appointment.left_photo), alt: 'Left Photo' %>
-            </div>
-            <div class="photo">
-              <%= image_tag url_for(appointment.right_photo), alt: 'Right Photo' %>
-            </div>
-            <div class="photo">
-              <%= image_tag url_for(appointment.front_photo), alt: 'Front Photo' %>
-            </div>
+          <div class="appointment-info">
+            <div class="flex">
+                <%= link_to edit_patients_appointment_path(appointment.id) do %>
+                  <%= heroicon "pencil" %>
+                <% end %>
+                <%= button_to patients_appointment_path(appointment), :method => :delete, :class => 'text-danger' do %>
+                  <%= heroicon "trash" %>
+                <% end %>
+              </div>
+              <h2 class="card-body p-0">
+                <%= appointment.time.strftime("%d %B, %Y - %H:%M") %>
+              </h2>
+              <h3 class="card-body p-0">
+                <%= appointment.surgery_type.humanize %>
+              </h3>
+              <% if appointment.description? %>
+                  <p class="card-body">
+                    <%= appointment.description %>
+                  </p>
+              <% end %>
+              <div class="photo-container row">
+                <% if appointment.left_photo? %>
+                    <div class="photo col-lg-4 col-md-4 col-sm-12 rounded-circle">
+                      <%= image_tag url_for(appointment.left_photo), alt: 'Left Photo' %>
+                    </div>
+                <% end %>
+                <% if appointment.right_photo? %>
+                    <div class="photo col-lg-4 col-md-4 col-sm-12 rounded-circle">
+                      <%= image_tag url_for(appointment.right_photo), alt: 'Right Photo' %>
+                    </div>
+                <% end %>
+                <% if appointment.front_photo? %>
+                    <div class="photo col-lg-4 col-md-4 col-sm-12 rounded-circle">
+                      <%= image_tag url_for(appointment.front_photo), alt: 'Front Photo' %>
+                    </div>
+                <% end %>
+              </div>
           </div>
-          <div class="col-12 py-4">
+          <div class="doctor-info col-12 py-4">
             <div class="container">
               <div class="row">
-                <div class="col-6">
+                <div class="col-3">
                   <%= avatar(appointment.doctor.user, 60) %>
                 </div>
-                <div>
-                  <h3 class="doctor-name">
-                    Doctor: <%= link_to appointment.doctor.user.name, doctor_path(appointment.doctor) %>
+                <div class="col-9">
+                  <h3 class="doctor-name mt-0">
+                    <span class="font-weight-bold">Doctor:</span> <%= link_to appointment.doctor.user.name, doctor_path(appointment.doctor) %>
                   </h3>
-                  <p class="card-body">
-                    Speciality: <%= appointment.doctor.specialty %>
-                  </p>
-                  <div class="card-body">
-                    Clinic: <%= truncate strip_tags(appointment.doctor.clinic_name), length: 160 %>
+                  <div>
+                    <span class="font-weight-bold">Speciality:</span> <%= appointment.doctor.specialty %>
                   </div>
-                  <div class="card-body">
-                    City: <%= truncate strip_tags(appointment.doctor.city), length: 160 %>
+                  <div>
+                    <span class="font-weight-bold">Clinic:</span> <%= truncate strip_tags(appointment.doctor.clinic_name), length: 160 %>
+                  </div>
+                  <div>
+                    <span class="font-weight-bold">City:</span> <%= truncate strip_tags(appointment.doctor.city), length: 160 %>
                   </div>
                 </div>
               </div>
