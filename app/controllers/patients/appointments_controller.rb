@@ -1,11 +1,18 @@
 class Patients::AppointmentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_appointment, only: [:show, :edit, :update]
   before_action :set_doctor, only: [:new, :create]
-  before_action :set_appointment, only: [:show]
+  before_action :get_doctors, only: [:new, :edit]
 
   def new
     @appointment = Appointment.new
-    @doctors = Doctor.joins(:user).all.collect {|doctor| [ doctor.user.name, doctor.id ] }
+  end
+
+  def edit
+    @doctor = @appointment.doctor
+
+    p 'aaaaaaaaaaaaaaaareeeeeeeeeeeeedit'
+    p @appointment.left_photo
   end
 
   def index
@@ -17,15 +24,19 @@ class Patients::AppointmentsController < ApplicationController
     @appointment = current_user.patient.appointments.build(appointment_params)
     @appointment.doctor = @doctor
 
-    p '@appointment@appointment'
-    p @appointment
     if @appointment.save
       redirect_to patients_appointments_path
     else
-      p '=========='
-      p @appointment.errors.full_messages
       @doctors = Doctor.joins(:user).all.collect {|doctor| [ doctor.user.name, doctor.id ] }
       render :new
+    end
+  end
+
+  def update
+    if @appointment.update(appointment_params)
+      redirect_to @appointment, notice: 'Appointment was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -38,14 +49,20 @@ class Patients::AppointmentsController < ApplicationController
 
   def set_doctor
     @doctor = Doctor.find_by_id(params[:doctor_id])
-    p '@doctor@doctor@doctor@doctor'
-    p @doctor
     if @doctor.blank?
       @doctor = Doctor.new
     end
   end
 
   def appointment_params
-    params.require(:appointment).permit(:date, :time, :description, :surgery_type, :left_photo, :front_photo, :right_photo)
+    params.require(:appointment).permit(:time, :description, :surgery_type, :left_photo, :front_photo, :right_photo)
+  end
+
+  def find_appointment
+    @appointment = Appointment.find(params[:id])
+  end
+
+  def get_doctors
+    @doctors = Doctor.joins(:user).all.collect {|doctor| [ doctor.user.name, doctor.id ] }
   end
 end
