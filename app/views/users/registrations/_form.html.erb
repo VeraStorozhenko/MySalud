@@ -16,10 +16,8 @@
 
     <%= f.hidden_field :role, value: params[:role] || 'patient' %>
 
-    <div class="form-group">
-      <%= f.label :role, "I am signing up as a:" %>
-      <%= f.select :role, options_for_select(['patient', 'doctor']), {}, onchange: "toggleForm()", class: 'form-control', id: 'role-select' %>
-    </div>
+    <%= f.label :role, "I am signing up as a:" %>
+    <%= f.select :role, options_for_select(['patient', 'doctor']), {}, onchange: "toggleForm()", id: 'role-select' %>
 
     <div id="patient-form">
       <%= f.fields_for :patient do |patient_fields| %>
