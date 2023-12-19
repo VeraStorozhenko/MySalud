@@ -28,6 +28,9 @@ Rails v7 application template ready to start building your next project, with a 
 
 Clone this repository (or use the GitHub *template* button), then `cd` into the folder and run:
 
+````
+> gem install pg -v '1.5.3' --source 'https://rubygems.org/'
+````
 ```
 > bin/setup
 ```
