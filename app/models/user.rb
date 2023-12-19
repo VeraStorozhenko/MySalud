@@ -9,6 +9,16 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_many :articles, dependent: :destroy
+  has_many :index, dependent: :destroy
+
+  enum role: [:doctor, :patient]
+  has_one :patient
+  has_one :doctor
+
+  #accepts_nested_attributes_for :doctor
+  #accepts_nested_attributes_for :patient
+
+  # validates :name, presence: true
 
   def name
     @name ||= self[:name].presence || email.split("@").first

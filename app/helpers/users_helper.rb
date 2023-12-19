@@ -5,6 +5,12 @@ module UsersHelper
       class: "rounded-full"
   end
 
+  def photo(photo, size = 500)
+    image_tag url_for(photo)
+              #size: size,
+              #class: "h-auto max-w-full rounded-lg"
+  end
+
   def avatar_url(user, size)
     if user.avatar.attached?
       url_for(user.avatar)

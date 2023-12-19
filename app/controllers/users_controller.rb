@@ -6,6 +6,11 @@ class UsersController < ApplicationController
     @pagy, @users = pagy(@q.result.order(created_at: :desc), items: 5)
   end
 
+  def create
+    p '================='
+
+  end
+
   def show
     @user = User.find(params[:id])
 

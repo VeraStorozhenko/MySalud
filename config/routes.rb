@@ -1,13 +1,38 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations: 'users/registrations'
   }
 
   root "home#index"
 
   resources :articles
-  resource :user, only: %i[edit update destroy]
-  resources :users, only: %i[index show]
+  resource :user, only: %i[create edit update destroy]
+  resources :users, only: %i[index create show]
+
+  # index :doctors, only: [:index, :show] do
+  #   index :index, only: [:new, :create, :show]
+  # end
+
+  # namespace :users do
+    resources :doctors, only: [:new, :index, :create, :show] do
+      get 'index', on: :collection
+      #index :index, only: [:new, :index, :create, :show]
+    end
+    namespace :patients do
+      # get 'appointments', to: 'appointments#index'
+      # resource 'patients/appointments', only: [:index]
+      resources :appointments
+      resources :index, path: '', only: [] do
+        get 'dashboard', on: :member
+        get 'doctors_list', on: :collection
+        get 'index', on: :collection
+        #index :index, only: [:new, :index, :create, :show]
+      end
+    end
+
+  # end
+  #index :index, only: [:new, :index, :create, :show]
 
   get "/pages/:page" => "pages#show", as: :page
 

@@ -1,0 +1,33 @@
+<h1>List of Appointments</h1>
+
+<div class="table-responsive mt-8">
+  <table>
+    <thead>
+    <tr>
+      <th><%= sort_link(@q, :name) %></th>
+      <th><%= sort_link(@q, :datetime) %></th>
+      <th><%= sort_link(@q, :datetime) %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @appointments.each do |appointment| %>
+      <tr>
+        <td>
+          <%= appointment.patient.user.name %>
+        </td>
+        <td>
+          <%= format_time appointment.datetime %>
+        </td>
+        <td>
+          <%= photos(appointment, 60) %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-center mt-10">
+  <%== pagy_nav(@pagy) %>
+</div>

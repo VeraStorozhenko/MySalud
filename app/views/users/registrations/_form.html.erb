@@ -1,0 +1,51 @@
+<!-- app/views/devise/registrations/_form.html.erb -->
+<div data-controller="registrations" id="registrations">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
+    <%= render "application/error_messages", object: resource %>
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true %>
+
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password, autocomplete: "new-password" %>
+
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+
+    <%= f.hidden_field :role, value: params[:role] || 'patient' %>
+
+    <div class="form-group">
+      <%= f.label :role, "I am signing up as a:" %>
+      <%= f.select :role, options_for_select(['patient', 'doctor']), {}, onchange: "toggleForm()", class: 'form-control', id: 'role-select' %>
+    </div>
+
+    <div id="patient-form">
+      <%= f.fields_for :patient do |patient_fields| %>
+        <%= patient_fields.label :date_of_birth %>
+        <%= patient_fields.date_field :date_of_birth %>
+      <% end %>
+    </div>
+
+    <div id="doctor-form" class="hidden">
+      <%= f.fields_for :doctor do |doctor_fields| %>
+        <%= doctor_fields.label :specialty %>
+        <%= doctor_fields.text_field :specialty %>
+
+        <%= doctor_fields.label :city %>
+        <%= doctor_fields.text_field :city %>
+
+        <%= doctor_fields.label :clinic_name %>
+        <%= doctor_fields.text_field :clinic_name %>
+
+        <%= doctor_fields.label :description %>
+        <%= doctor_fields.text_field :description %>
+      <% end %>
+    </div>
+
+    <button class="btn">
+      <%= f.submit "Sign up" %>
+    </button>
+  <% end %>
+</div>

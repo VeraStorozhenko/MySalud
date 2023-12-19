@@ -13,5 +13,7 @@ module RailsRalixTailwind
 
     # This tells Rails to serve error pages from the app itself, rather than using static error pages in public/
     config.exceptions_app = self.routes
+
+    config.autoload_paths += %W["#{config.root}/app/validators/"]
   end
 end

@@ -1,0 +1,5 @@
+<div data-controller="registrations">
+  <%= turbo_frame_tag 'registration_form' do %>
+    <%= render partial: 'form', locals: { f: form_with(model: resource, local: true) } %>
+  <% end %>
+</div>

@@ -3,13 +3,20 @@
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center">
         <div class="flex-shrink-0">
-          <a href="<%= root_path %>" class="text-white text-2xl">Starter Kit</h2>
+          <a href="<%= root_path %>" class="text-white text-2xl">Salud App</a>
         </div>
         <div class="hidden sm:block">
           <div class="ml-8 flex items-baseline space-x-4">
             <a href="<%= root_path %>" class="<%= nav_link_class("home") %>">Home</a>
-            <a href="<%= articles_path %>" class="<%= nav_link_class("articles") %>">Articles</a>
-            <a href="<%= users_path %>" class="<%= nav_link_class("users") %>">Users</a>
+            <% if user_signed_in? %>
+              <% if current_user.patient? %>
+                <a href="<%= patients_appointments_path %>" class="<%= nav_link_class("index") %>">Appointments</a>
+                <a href="<%= doctors_list_patients_index_index_path %>" class="<%= nav_link_class("users") %>">Doctors List</a>
+              <% end %>
+              <% if current_user.doctor? %>
+                <a href="<%= appointments_doctors_path %>" class="<%= nav_link_class("index") %>">Appointments</a>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>

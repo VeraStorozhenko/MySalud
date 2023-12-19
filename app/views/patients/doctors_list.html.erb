@@ -1,0 +1,40 @@
+<h1>Doctors List</h1>
+<%= turbo_frame_tag 'doctors_list' do %>
+  <%= search_form_for @q, url: doctors_list_patients_index_index_path, data: { turbo_frame: "search" } do |f| %>
+    <div class="relative">
+      <%= f.text_field :specialty_or_city_or_clinic_name_or_user_name_cont, class: "search-input p-3 pl-10 text-sm",
+                       onkeyup: "search()", placeholder: "Search ..." %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= turbo_frame_tag "search", target: "_top" do %>
+  <div class="mt-8 grid sm:grid-cols-2 gap-8">
+    <% @doctors.each do |doctor| %>
+      <doctor class="card">
+        <div class="card-body">
+          <%= avatar(doctor.user, 60) %>
+        </div>
+        <h3 class="doctor-name">
+          <%= link_to doctor.user.name, doctor_path(doctor) %>
+        </h3>
+        <p class="card-body">
+          <%= doctor.specialty %>
+        </p>
+        <div class="card-body">
+          <%= truncate strip_tags(doctor.clinic_name), length: 160 %>
+        </div>
+        <div class="card-body">
+          <%= truncate strip_tags(doctor.city), length: 160 %>
+        </div>
+        <p></p>
+        <div class="card-body">
+          <a href="<%= new_patients_appointment_path(doctor_id: doctor) %>" class="btn">Book a 3D consultation</a>
+        </div>
+      </doctor>
+    <% end %>
+  </div>
+  <div class="text-center mt-10">
+    <%== pagy_nav(@pagy) %>
+  </div>
+<% end %>
