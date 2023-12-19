@@ -4,6 +4,7 @@
 @import 'tailwindcss/utilities';
 @import 'tippy.js/dist/tippy.css';
 @import "trix/dist/trix";
+@import "../../../node_modules/bootstrap/dist/css/bootstrap.css";
 
 /* Components */
 @import 'components/base.css';

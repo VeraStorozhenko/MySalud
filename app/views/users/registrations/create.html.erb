@@ -1,0 +1,12 @@
+<!-- app/views/devise/registrations/new.html.erb -->
+<div data-controller="registrations">
+  <%= turbo_frame_tag 'registration_form' do %>
+    <%= render partial: 'form', locals: { f: form_with(model: resource, local: true) } %>
+  <% end %>
+</div>
+
+<turbo-stream action="replace" target="registration_form">
+  <template>
+    <%= render partial: 'form', locals: { f: form_with(model: resource) } %>
+  </template>
+</turbo-stream>
