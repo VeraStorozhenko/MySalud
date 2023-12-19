@@ -16,6 +16,9 @@ gem "ransack", "~> 3.2"
 gem "pagy", "~> 5.10"
 gem "image_processing", "~> 1.2"
 gem "faker", "~> 2"
+gem 'factory_bot_rails'
+gem 'rspec-rails', '~> 5.0'
+gem 'rails-controller-testing'
 
 # Front-end
 gem "sprockets-rails", "~> 3.4"

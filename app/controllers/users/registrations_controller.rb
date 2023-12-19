@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if role == 'patient'
         redirect_to patients_appointments_path, notice: "User was successfully created."
       elsif role == 'doctor'
-        redirect_to appointments_doctors_path, notice: "User was successfully created."
+        redirect_to doctors_appointments_path, notice: "User was successfully created."
       end
     else
       render :template => 'users/registrations/new', locals: { resource: resource}
@@ -39,9 +39,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def patient_params
-    params.require(:user).require(:patient).permit(
-      :date_of_birth,
-      )
+    params.require(:user).require(:patient).permit(:date_of_birth)
   end
 
   protected
