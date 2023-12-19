@@ -15,24 +15,22 @@ Rails.application.routes.draw do
   # end
 
   # namespace :users do
-    resources :doctors, only: [:new, :index, :create, :show] do
-      get 'index', on: :collection
-      #index :index, only: [:new, :index, :create, :show]
-    end
+  #   resources :doctors, only: [:new, :index, :create, :show] do
+  #     get 'index', on: :collection
+  #     #index :index, only: [:new, :index, :create, :show]
+  #   end
     namespace :patients do
-      # get 'appointments', to: 'appointments#index'
-      # resource 'patients/appointments', only: [:index]
       resources :appointments
       resources :index, path: '', only: [] do
         get 'dashboard', on: :member
         get 'doctors_list', on: :collection
         get 'index', on: :collection
-        #index :index, only: [:new, :index, :create, :show]
       end
     end
 
-  # end
-  #index :index, only: [:new, :index, :create, :show]
+  namespace :doctors do
+    resources :appointments
+  end
 
   get "/pages/:page" => "pages#show", as: :page
 
