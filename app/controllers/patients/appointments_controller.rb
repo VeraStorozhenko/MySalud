@@ -16,12 +16,10 @@ class Patients::AppointmentsController < ApplicationController
   def create
     @appointment = current_user.patient.appointments.build(appointment_params)
     @appointment.doctor = @doctor
-    
+
+    p '@appointment@appointment'
+    p @appointment
     if @appointment.save
-      p '================'
-      p 'my new appointment'
-      p @appointment
-      
       redirect_to patients_appointments_path
     else
       p '=========='
@@ -40,10 +38,14 @@ class Patients::AppointmentsController < ApplicationController
 
   def set_doctor
     @doctor = Doctor.find_by_id(params[:doctor_id])
-    @doctor = Doctor.new if @doctor.blank?
+    p '@doctor@doctor@doctor@doctor'
+    p @doctor
+    if @doctor.blank?
+      @doctor = Doctor.new
+    end
   end
 
   def appointment_params
-    params.require(:appointment).permit(:time, :description, :surgery_type, :left_photo, :front_photo, :right_photo)
+    params.require(:appointment).permit(:date, :time, :description, :surgery_type, :left_photo, :front_photo, :right_photo)
   end
 end
