@@ -13,8 +13,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if resource.save
       sign_in(resource)
-      p '=after sign in='
-      p current_user
       if role == 'patient'
         redirect_to patients_appointments_path, notice: "User was successfully created."
       elsif role == 'doctor'
