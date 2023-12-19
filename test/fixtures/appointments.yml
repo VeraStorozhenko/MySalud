@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patient: one
+  datetime: 2023-12-11 12:45:57
+
+two:
+  patient: two
+  datetime: 2023-12-11 12:45:57
