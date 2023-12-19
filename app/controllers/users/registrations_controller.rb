@@ -39,9 +39,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def patient_params
-    params.require(:user).require(:patient).permit(
-      :date_of_birth,
-      )
+    params.require(:user).require(:patient).permit(:date_of_birth)
   end
 
   protected
