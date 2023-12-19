@@ -17,13 +17,9 @@ class Patients::AppointmentsController < ApplicationController
     @appointment = current_user.patient.appointments.build(appointment_params)
     @appointment.doctor = @doctor
 
-    p '@appointment@appointment'
-    p @appointment
     if @appointment.save
       redirect_to patients_appointments_path
     else
-      p '=========='
-      p @appointment.errors.full_messages
       @doctors = Doctor.joins(:user).all.collect {|doctor| [ doctor.user.name, doctor.id ] }
       render :new
     end
@@ -38,8 +34,6 @@ class Patients::AppointmentsController < ApplicationController
 
   def set_doctor
     @doctor = Doctor.find_by_id(params[:doctor_id])
-    p '@doctor@doctor@doctor@doctor'
-    p @doctor
     if @doctor.blank?
       @doctor = Doctor.new
     end
