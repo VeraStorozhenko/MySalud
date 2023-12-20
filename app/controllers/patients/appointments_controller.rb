@@ -1,16 +1,16 @@
 class Patients::AppointmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_appointment, only: [:show]
+  before_action :find_appointment, only: [:destroy]
   before_action :set_doctor, only: [:new, :create]
   before_action :get_doctors, only: [:new]
 
-  def new
-    @appointment = Appointment.new
-  end
-
   def index
     @q = current_user.patient.appointments.joins(:patient, :doctor).order(:time)
-    @pagy, @appointments = pagy(@q, items: 4)
+    @pagy, @appointments = pagy(@q, items: 6)
+  end
+
+  def new
+    @appointment = Appointment.new
   end
 
   def create
@@ -25,9 +25,10 @@ class Patients::AppointmentsController < ApplicationController
     end
   end
 
-  def show
-    @appointment = Appointment.find(params[:id])
-    authorize! :read, @appointment
+  def destroy
+    @appointment.destroy
+
+    redirect_to root_path, notice: "Appointment was successfully deleted."
   end
 
   private

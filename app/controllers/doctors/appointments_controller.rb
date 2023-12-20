@@ -5,11 +5,6 @@ class Doctors::AppointmentsController < ApplicationController
 
   def index
     @q = current_user.doctor.appointments.joins(:patient).order(:time)
-    @pagy, @appointments = pagy(@q, items: 4)
-  end
-
-  def show
-    @appointment = Appointment.find(params[:id])
-    authorize! :read, @appointment
+    @pagy, @appointments = pagy(@q, items: 6)
   end
 end
