@@ -4,12 +4,11 @@ class Doctors::AppointmentsController < ApplicationController
   before_action :set_appointment, only: [:show]
 
   def index
-    p '================='
-    p current_user
-    
-    
     @q = current_user.doctor.appointments.joins(:patient, :doctor)
     @pagy, @appointments = pagy(@q, items: 4)
+
+    p '================='
+    p current_user.doctor
   end
 
   def create
