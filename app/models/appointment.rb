@@ -9,17 +9,12 @@ class Appointment < ApplicationRecord
   enum surgery_type: { face: 0, breast: 1, other: 2 }
 
   validates :surgery_type, presence: true
-  validates :doctor, presence: true
   validates :left_photo, presence: true
   validates :right_photo, presence: true
   validates :front_photo, presence: true
+  validates :doctor_id, presence: true
   validates :time, presence: true
   validate :date_must_be_in_future
-
-  validates_size_of :left_photo, maximum: 3.megabytes, message: 'file size must be less than 3MB'
-  validates_size_of :right_photo, maximum: 3.megabytes, message: 'file size must be less than 3MB'
-  validates_size_of :front_photo, maximum: 3.megabytes, message: 'file size must be less than 3MB'
-
   validate :validate_attachment_size
 
   private

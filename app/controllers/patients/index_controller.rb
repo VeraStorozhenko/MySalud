@@ -3,7 +3,7 @@ class Patients::IndexController < ApplicationController
   before_action :set_patient
 
   def doctors_list
-    @q = Doctor.joins(:user).ransack(params[:q])#.page(params[:page])
+    @q = Doctor.joins(:user).ransack(params[:q])
     @pagy, @doctors = pagy(@q.result(distinct: true), items: 6)
 
     render 'patients/doctors_list'
