@@ -1,4 +1,4 @@
-<%= turbo_frame_tag 'registration_form' do %>
+<%= turbo_frame_tag 'new_appointmant_form', data: { turbo: "false" } do %>
     <h1>New Appointment</h1>
     <%= form_with(model: @appointment, url: patients_appointments_path, method: :post) do |form| %>
       <%= render "application/error_messages", object: @appointment %>
