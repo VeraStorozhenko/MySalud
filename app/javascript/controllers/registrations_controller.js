@@ -9,10 +9,8 @@ export default class RegistrationsController extends AppCtrl {
     }
 
     toggleForm() {
-        console.log('toggle form')
         this.isDoctor = !this.isDoctor;
         this.showForm()
-        console.log('after show form')
     }
 
     showForm() {

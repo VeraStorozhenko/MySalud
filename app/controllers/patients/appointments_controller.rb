@@ -1,22 +1,15 @@
 class Patients::AppointmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_appointment, only: [:show, :edit, :update]
+  before_action :find_appointment, only: [:show]
   before_action :set_doctor, only: [:new, :create]
-  before_action :get_doctors, only: [:new, :edit]
+  before_action :get_doctors, only: [:new]
 
   def new
     @appointment = Appointment.new
   end
 
-  def edit
-    @doctor = @appointment.doctor
-
-    p 'aaaaaaaaaaaaaaaareeeeeeeeeeeeedit'
-    p @appointment.left_photo
-  end
-
   def index
-    @q = current_user.patient.appointments.joins(:patient, :doctor)
+    @q = current_user.patient.appointments.joins(:patient, :doctor).order(:time)
     @pagy, @appointments = pagy(@q, items: 4)
   end
 
@@ -25,18 +18,10 @@ class Patients::AppointmentsController < ApplicationController
     @appointment.doctor = @doctor
 
     if @appointment.save
-      redirect_to patients_appointments_path
+      redirect_to patients_appointments_path, turbolinks: true
     else
       @doctors = Doctor.joins(:user).all.collect {|doctor| [ doctor.user.name, doctor.id ] }
       render :new
-    end
-  end
-
-  def update
-    if @appointment.update(appointment_params)
-      redirect_to @appointment, notice: 'Appointment was successfully updated.'
-    else
-      render :edit
     end
   end
 

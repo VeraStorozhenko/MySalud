@@ -13,7 +13,7 @@
                 <a href="<%= doctors_list_patients_index_index_path %>" class="<%= nav_link_class("users") %>">Doctors List</a>
               <% end %>
               <% if current_user.doctor? %>
-                <a href="<%= appointments_doctors_path %>" class="<%= nav_link_class("index") %>">Appointments</a>
+                <a href="<%= doctors_appointments_path %>" class="<%= nav_link_class("index") %>">Appointments</a>
               <% end %>
             <% end %>
           </div>
@@ -27,6 +27,7 @@
                 <%= avatar(current_user) %>
               </a>
             <% else %>
+              <%= link_to "Sign up", new_registration_path(resource_name), class: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
               <%= link_to "Sign in", new_user_session_path, class: "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
             <% end %>
           </div>

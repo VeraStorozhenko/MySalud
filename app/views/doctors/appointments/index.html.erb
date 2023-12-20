@@ -1,33 +1,65 @@
-<h1>List of Appointments</h1>
-
-<div class="table-responsive mt-8">
-  <table>
-    <thead>
-    <tr>
-      <th><%= sort_link(@q, :name) %></th>
-      <th><%= sort_link(@q, :datetime) %></th>
-      <th><%= sort_link(@q, :datetime) %></th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @appointments.each do |appointment| %>
-      <tr>
-        <td>
-          <%= appointment.patient.user.name %>
-        </td>
-        <td>
-          <%= format_time appointment.datetime %>
-        </td>
-        <td>
-          <%= photos(appointment, 60) %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+<div class="flex justify-between">
+    <h1>Your Appointments list</h1>
 </div>
 
-<div class="text-center mt-10">
-  <%== pagy_nav(@pagy) %>
-</div>
+<% if !@appointments.blank? %>
+    <div class="mt-8 grid sm:grid-cols-2 gap-8">
+      <% @appointments.each do |appointment| %>
+        <appointment class="card">
+          <div class="appointment-info">
+              <h2 class="card-body p-0">
+                <%= appointment.time.strftime("%A, %d %B, %Y - %H:%M") %>
+              </h2>
+              <h3 class="card-body p-0">
+                <%= appointment.surgery_type.humanize %>
+              </h3>
+              <% if appointment.description? %>
+                  <p class="card-body">
+                    <%= appointment.description %>
+                  </p>
+              <% end %>
+              <div class="photo-container row">
+                <% if appointment.left_photo? %>
+                    <div class="photo col-lg-4 col-md-4 col-sm-12 rounded-circle">
+                      <%= image_tag url_for(appointment.left_photo), alt: 'Left Photo' %>
+                    </div>
+                <% end %>
+                <% if appointment.right_photo? %>
+                    <div class="photo col-lg-4 col-md-4 col-sm-12 rounded-circle">
+                      <%= image_tag url_for(appointment.right_photo), alt: 'Right Photo' %>
+                    </div>
+                <% end %>
+                <% if appointment.front_photo? %>
+                    <div class="photo col-lg-4 col-md-4 col-sm-12 rounded-circle">
+                      <%= image_tag url_for(appointment.front_photo), alt: 'Front Photo' %>
+                    </div>
+                <% end %>
+              </div>
+          </div>
+          <div class="patient-info col-12 py-4">
+            <div class="container">
+              <div class="row">
+                <div class="col-3">
+                  <%= avatar(appointment.patient.user, 60) %>
+                </div>
+                <div class="col-9">
+                  <h3 class="doctor-name mt-0">
+                    <span class="font-weight-bold">Doctor:</span> <%= appointment.patient.user.name %>
+                  </h3>
+                  <div>
+                    <span class="font-weight-bold">Speciality:</span><%= appointment.patient.date_of_birth.strftime("%d %B, %Y") %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p></p>
+        </appointment>
+      <% end %>
+    </div>
+    <div class="text-center mt-10">
+      <%== pagy_nav(@pagy) %>
+    </div>
+<% else %>
+    Here no appointments
+<% end %>

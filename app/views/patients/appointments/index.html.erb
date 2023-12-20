@@ -15,15 +15,12 @@
         <appointment class="card">
           <div class="appointment-info">
             <div class="flex">
-                <%= link_to edit_patients_appointment_path(appointment.id) do %>
-                  <%= heroicon "pencil" %>
-                <% end %>
                 <%= button_to patients_appointment_path(appointment), :method => :delete, :class => 'text-danger' do %>
                   <%= heroicon "trash" %>
                 <% end %>
               </div>
               <h2 class="card-body p-0">
-                <%= appointment.time.strftime("%d %B, %Y - %H:%M") %>
+                <%= appointment.time.strftime("%A, %d %B, %Y - %H:%M") %>
               </h2>
               <h3 class="card-body p-0">
                 <%= appointment.surgery_type.humanize %>

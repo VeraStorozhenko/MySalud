@@ -48,7 +48,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if resource.patient?
       patients_appointments_path
     elsif resource.doctor?
-      appointments_doctors_path
+      doctors_appointments_path
     end
   end
 end
