@@ -44,10 +44,10 @@
                 </div>
                 <div class="col-9">
                   <h3 class="doctor-name mt-0">
-                    <span class="font-weight-bold">Doctor:</span> <%= appointment.patient.user.name %>
+                    <span class="font-weight-bold">Patient:</span> <%= appointment.patient.user.name %>
                   </h3>
                   <div>
-                    <span class="font-weight-bold">Speciality:</span><%= appointment.patient.date_of_birth.strftime("%d %B, %Y") %>
+                    <span class="font-weight-bold">Date of birth: </span><%= appointment.patient.date_of_birth.strftime("%d %B, %Y") %>
                   </div>
                 </div>
               </div>
