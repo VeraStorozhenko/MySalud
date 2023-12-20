@@ -5,7 +5,6 @@ export default class RegistrationsController extends AppCtrl {
 
     constructor() {
         super();
-        console.log('hereee');
         this.isDoctor = false
     }
 
@@ -20,14 +19,4 @@ export default class RegistrationsController extends AppCtrl {
         toggleClass('#patient-form', 'hidden')
         toggleClass('#doctor-form', 'hidden')
     }
-
-    // static targets = ['errorMessages'];
-
-    // handleError(event) {
-    //     event.preventDefault();
-    //     const errorMessages = event.detail[0].errors;
-    //
-    //     this.errorMessagesTarget.innerHTML = errorMessages;
-    //     this.element.classList.add('error');
-    // }
 }

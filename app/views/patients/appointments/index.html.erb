@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-9">
                   <h3 class="doctor-name mt-0">
-                    <span class="font-weight-bold">Doctor:</span> <%= link_to appointment.doctor.user.name, doctor_path(appointment.doctor) %>
+                    <span class="font-weight-bold">Doctor:</span> <%= appointment.doctor.user.name %>
                   </h3>
                   <div>
                     <span class="font-weight-bold">Speciality:</span> <%= appointment.doctor.specialty %>

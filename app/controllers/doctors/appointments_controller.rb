@@ -3,15 +3,6 @@ class Doctors::AppointmentsController < ApplicationController
   before_action :set_doctor, only: [:new, :create]
   before_action :set_appointment, only: [:show]
 
-  def new
-    @appointment = Appointment.new
-    @doctors = Doctor.joins(:user).all.collect {|doctor| [ doctor.user.name, doctor.id ] }
-  end
-
-  def show
-    
-  end
-
   def index
     p '================='
     p current_user

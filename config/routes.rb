@@ -10,15 +10,6 @@ Rails.application.routes.draw do
   resource :user, only: %i[create edit update destroy]
   resources :users, only: %i[index create show]
 
-  # index :doctors, only: [:index, :show] do
-  #   index :index, only: [:new, :create, :show]
-  # end
-
-  # namespace :users do
-  #   resources :doctors, only: [:new, :index, :create, :show] do
-  #     get 'index', on: :collection
-  #     #index :index, only: [:new, :index, :create, :show]
-  #   end
     namespace :patients do
       resources :appointments
       resources :index, path: '', only: [] do

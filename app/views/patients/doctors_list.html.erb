@@ -16,7 +16,7 @@
           <%= avatar(doctor.user, 60) %>
         </div>
         <h3 class="doctor-name">
-          <%= link_to doctor.user.name, doctor_path(doctor) %>
+          <%= doctor.user.name %>
         </h3>
         <p class="card-body">
           <%= doctor.specialty %>

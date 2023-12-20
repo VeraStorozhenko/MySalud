@@ -10,6 +10,7 @@ import "@rails/actiontext"
 import AppCtrl      from './controllers/app'
 import ArticlesCtrl from './controllers/articles'
 import RegistrationsController from './controllers/registrations_controller'
+import ImagePreviewController from './image_preview_controller';
 
 // Components
 import RemoteModal  from './components/remote_modal'
