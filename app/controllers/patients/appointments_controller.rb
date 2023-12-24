@@ -1,8 +1,8 @@
 class Patients::AppointmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_appointment, only: [:destroy]
-  before_action :set_doctor, only: [:new, :create]
-  before_action :get_doctors, only: [:new]
+  before_action :set_appointment, only: [:edit, :update, :destroy]
+  before_action :set_doctor, only: [:new, :create, :update, :edit]
+  before_action :get_doctors, only: [:new, :edit]
 
   def index
     @q = current_user.patient.appointments.joins(:patient, :doctor).order(:time)
@@ -11,6 +11,18 @@ class Patients::AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
+  end
+
+  def edit
+  end
+
+  def update
+    if @appointment.update(appointment_params)
+      redirect_to patients_appointments_path, notice: "Appointment was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+
   end
 
   def create
@@ -44,7 +56,7 @@ class Patients::AppointmentsController < ApplicationController
     params.require(:appointment).permit(:time, :description, :surgery_type, :left_photo, :front_photo, :right_photo)
   end
 
-  def find_appointment
+  def set_appointment
     @appointment = Appointment.find(params[:id])
   end
 

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[index create show]
 
   namespace :patients do
-    resources :appointments, only: %i[index new create destroy]
+    resources :appointments
     resources :index, path: '', only: [] do
       get 'dashboard', on: :member
       get 'doctors_list', on: :collection

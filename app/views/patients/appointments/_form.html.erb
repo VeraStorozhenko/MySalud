@@ -1,0 +1,45 @@
+<%= form_with(model: @appointment, url: patients_appointment_path, method: :put) do |form| %>
+  <%= render "application/error_messages", object: @appointment %>
+
+  <div>
+    <%= form.label :surgery_type %>
+    <%= form.select :surgery_type, Appointment.surgery_types.keys, prompt: "Select Surgery Type" %>
+  </div>
+
+  <div>
+    <%= form.label :doctor %>
+    <%= select_tag(
+          'doctor_id',
+          options_for_select(@doctors, @doctor.id),
+          {
+            prompt: "Select doctor",
+          }
+        )
+    %>
+  </div>
+
+  <%= form.label :time %>
+  <%= form.datetime_field :time, class: 'form-control', min: Date.today %>
+
+  <div class="field">
+    <%= form.label :left_photo %>
+    <%= form.file_field :left_photo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :front_photo %>
+    <%= form.file_field :front_photo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :right_photo %>
+    <%= form.file_field :right_photo %>
+  </div>
+
+  <%= form.label :description %>
+  <%= form.text_area :description, prompt: "Add some description to your appointment" %>
+
+  <div class="mt-4">
+    <%= form.submit nil, class: 'btn' %>
+  </div>
+<% end %>

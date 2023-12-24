@@ -15,9 +15,10 @@
         <appointment class="card">
           <div class="appointment-info">
             <div class="flex">
-                <%= button_to patients_appointment_path(appointment), :method => :delete, :class => 'text-danger' do %>
+                <%= button_to patients_appointment_path(appointment), :method => :delete, :class => 'btn btn-danger' do %>
                   <%= heroicon "trash" %>
                 <% end %>
+                <%= link_to "Edit", edit_patients_appointment_path(appointment), class: 'btn' %>
               </div>
               <h2 class="card-body p-0">
                 <%= appointment.time.strftime("%A, %d %B, %Y - %H:%M") %>
