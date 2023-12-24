@@ -1,4 +1,12 @@
-<%= form_with(model: @appointment, url: patients_appointment_path, method: :put) do |form| %>
+<% if @appointment.persisted? %>
+  <% form_url = patients_appointment_path %>
+  <% form_method = :put %>
+<% else %>
+  <% form_url = patients_appointments_path %>
+  <% form_method = :post %>
+<% end %>
+
+<%= form_with(model: @appointment, url: form_url, method: form_method) do |form| %>
   <%= render "application/error_messages", object: @appointment %>
 
   <div>
